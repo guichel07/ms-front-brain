@@ -23,6 +23,7 @@
     "@vitest/coverage-v8": "^4.1.9",
     "eslint": "^10.5.0",
     "eslint-config-prettier": "^10.1.8",
+    "fake-indexeddb": "^6.2.5",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.4",
     "typescript": "~6.0.2",
@@ -32,15 +33,15 @@
   "dependencies": {
     "ms-login": "^1.0.9",
     "tek-ms-addsheet": "^1.0.3",
-    "tek-ms-barket": "^1.0.11",
+    "tek-ms-barket": "^1.0.12",
     "tek-ms-catalog": "^1.0.8",
     "tek-ms-confirm": "^1.0.5",
     "tek-ms-ds": "^1.0.14",
     "tek-ms-footer": "^1.0.2",
-    "tek-ms-header": "^1.0.15",
+    "tek-ms-header": "^1.0.16",
     "tek-ms-menu": "^1.0.7",
     "tek-ms-nav": "^1.0.3",
     "tek-ms-recap": "^1.0.8",
-    "tek-ms-tabbar": "^1.0.12"
+    "tek-ms-tabbar": "^1.0.15"
   }
 }

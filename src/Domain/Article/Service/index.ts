@@ -1,10 +1,10 @@
+import { AppEvent } from '../../../constants';
+import { EventBus } from '../../../EventBus';
 import { ArticleBD } from '../IndexDB';
-import type { ArticleDTO } from '../Model';
 import { ArticleRepository } from '../Repository';
 
 export class ArticleService {
   private static instance: ArticleService | null = null;
-  private callBacks: ((articleDTOs: ArticleDTO[]) => void)[] = [];
 
   private constructor() {}
 
@@ -15,27 +15,33 @@ export class ArticleService {
     return ArticleService.instance;
   }
 
-  public onUpdate(callBack: (articleDTOs: ArticleDTO[]) => void) {
-    this.callBacks.push(callBack);
-  }
-
-  async syncFromBackend() {
-    const data: ArticleDTO[] = await ArticleRepository.getInstance().getAll();
-    await ArticleBD.getInstance().saveArticles(data);
-    this.callBacks.forEach((callbackfn) => {
-      callbackfn(data);
-    });
-  }
-
   async getLocalAll() {
     return await ArticleBD.getInstance().getAllArticles();
   }
+
+  async getArticles() {
+    try {
+      EventBus.getInstance().emit(AppEvent.ArticlesLoaded, await ArticleBD.getInstance().getAllArticles());
+
+      const articlesFromBack = await ArticleRepository.getInstance().getAll();
+      await ArticleBD.getInstance().saveArticles(articlesFromBack);
+
+      EventBus.getInstance().emit(AppEvent.ArticlesLoaded, await ArticleBD.getInstance().getAllArticles());
+      alert("Articles synchronisés avec succès ✅");
+    } catch (e) {
+      console.log(e);
+      alert("Échec de la synchronisation des articles ❌");
+    }
+  }
+
 
   async getLocalById(id: string) {
     return await ArticleBD.getInstance().getArticleById(id);
   }
 
   async syncroStockByIdLocal(id: string, quantityOrdered: number) {
-    return ArticleBD.getInstance().syncroStockById(id, quantityOrdered);
+    const article = await ArticleBD.getInstance().syncroStockById(id, quantityOrdered);
+    EventBus.getInstance().emit(AppEvent.ArticleStockSynced, article);
+    return article;
   }
 }

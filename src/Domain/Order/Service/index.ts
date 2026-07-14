@@ -1,3 +1,5 @@
+import { AppEvent } from '../../../constants';
+import { EventBus } from '../../../EventBus';
 import { OrderBD, type PendingOrder } from '../IndexDB';
 import type { OrderDTO } from '../Model';
 import { OrderRepository } from '../Repository';
@@ -41,6 +43,7 @@ export class OrderService {
   }
 
   async registerLocal(orderDTO: OrderDTO) {
-    return await OrderBD.getInstance().saveOrder(orderDTO);
+    await OrderBD.getInstance().saveOrder(orderDTO);
+    EventBus.getInstance().emit(AppEvent.SaleRegistered, orderDTO)
   }
 }

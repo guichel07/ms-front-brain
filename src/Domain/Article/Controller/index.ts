@@ -1,4 +1,5 @@
-import type { ArticleDTO } from '../Model';
+import { AppEvent } from '../../../constants';
+import { EventBus } from '../../../EventBus';
 import { ArticleService } from '../Service';
 
 export class ArticleController {
@@ -13,18 +14,14 @@ export class ArticleController {
     return ArticleController.instance;
   }
 
-  public onUpdate(callBack: (articleDTOs: ArticleDTO[]) => void) {
-    ArticleService.getInstance().onUpdate(callBack);
+  static init(): void {
+    EventBus.getInstance().on(AppEvent.Connected, () => {
+      ArticleController.getInstance().getArticles();
+    })
   }
 
-  async syncFromBackend() {
-    try {
-      await ArticleService.getInstance().syncFromBackend();
-      alert('Synchronisation réussie');
-    } catch (e) {
-      console.error(e);
-      alert('Synchronisation échouée');
-    }
+  async getArticles() {
+    await ArticleService.getInstance().getArticles();
   }
 
   async getLocalAll() {
@@ -36,7 +33,7 @@ export class ArticleController {
   }
 
   async syncroStockByIdLocal(id: string, quantityOrdered: number) {
-    return ArticleService.getInstance().syncroStockByIdLocal(
+    return await ArticleService.getInstance().syncroStockByIdLocal(
       id,
       quantityOrdered
     );

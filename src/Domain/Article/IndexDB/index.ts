@@ -83,11 +83,9 @@ export class ArticleBD {
     const db = await this.getDB();
 
     return new Promise((resolve, reject) => {
-      // 1. Ouvrir une transaction en mode 'readwrite'
       const transaction = db.transaction(this.STORE, 'readwrite');
       const store = transaction.objectStore(this.STORE);
 
-      // 2. Récupérer l'article
       const getReq = store.get(id);
 
       getReq.onsuccess = () => {
@@ -98,10 +96,8 @@ export class ArticleBD {
           return;
         }
 
-        // 3. Modifier la quantité
         article.quantity += quantityOrdered;
 
-        // 4. Sauvegarder la modification dans le store
         const putReq = store.put(article);
 
         putReq.onsuccess = () => {
@@ -114,18 +110,4 @@ export class ArticleBD {
       getReq.onerror = () => reject(getReq.error);
     });
   }
-
-  async DeleteAllArticles(): Promise<void> {
-    const db = await this.getDB();
-    return new Promise((resolve, reject) => {
-      const req = db.transaction(this.STORE).objectStore(this.STORE).clear();
-
-      req.onsuccess = () => {
-        resolve();
-      };
-
-      req.onerror = () => reject(req.error);
-    });
-  }
-
 }
