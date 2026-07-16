@@ -74,9 +74,7 @@ describe('NavbarViewManager', () => {
 
     expect(config.navItems).toEqual([
       'Catalogue',
-      'Commandes',
-      'Clients',
-      'Paramètres',
+      'Déconnexion'
     ]);
 
     expect(config.onTabChange).toBeDefined();

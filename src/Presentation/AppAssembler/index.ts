@@ -65,5 +65,16 @@ export class AppAssembler {
     EventBus.getInstance().on(AppEvent.Connected, () => {
       AppAssembler.buildAppLayout();
     });
+
+    EventBus.getInstance().on(AppEvent.MenuItemSelected, (key) => {
+      if (key != "Catalogue") return;
+      const products = document.body.querySelector('#panel-products')!;
+      if (products.classList.contains('visible')) return;
+
+      document.body
+        .querySelector('#panel-cart')!
+        .classList.remove('visible');
+      products.classList.add('visible');
+    })
   }
 }

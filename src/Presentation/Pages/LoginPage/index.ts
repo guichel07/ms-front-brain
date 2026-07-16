@@ -26,6 +26,16 @@ export class LoginPage extends Login {
           LoginPage.getInstance().onLogin(username, password),
       });
     });
+
+    EventBus.getInstance().on(AppEvent.MenuItemSelected, (key) => {
+      if (key != "Déconnexion") return;
+      EventBus.getInstance().emit(AppEvent.Disconnected, undefined);
+    })
+
+    EventBus.getInstance().on(AppEvent.NavItemSelected, (key) => {
+      if (key != "Déconnexion") return;
+      EventBus.getInstance().emit(AppEvent.Disconnected, undefined);
+    })
   }
 
   static getInstance() {

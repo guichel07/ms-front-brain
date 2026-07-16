@@ -25,7 +25,7 @@ export class NavbarViewManager extends Nav {
     });
     EventBus.getInstance().on(AppEvent.Connected, () =>
       NavbarViewManager.getInstance().render({
-        navItems: ['Catalogue', 'Commandes', 'Clients', 'Paramètres'],
+        navItems: ['Catalogue', 'Déconnexion'],
         activeItem: 'Catalogue',
         onTabChange: (currentPageWeb: string) => {
           EventBus.getInstance().emit(AppEvent.NavItemSelected, currentPageWeb);

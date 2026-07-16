@@ -42,8 +42,7 @@ export class TabbarViewManager extends Tabbar {
             .classList.remove('visible');
           cart.classList.add('visible');
         },
-        onclickPage: (pageNema: string) => {
-          console.log(pageNema);
+        onclickPage: () => {
           const products = document.body.querySelector('#panel-products')!;
           if (products.classList.contains('visible')) return;
 
@@ -66,36 +65,16 @@ export class TabbarViewManager extends Tabbar {
     });
 
     EventBus.getInstance().on(AppEvent.MenuItemSelected, (key) => {
-      TabbarViewManager.getInstance().render({
-        pageLabel: key as string,
-        cartLabel: 'Panier',
-        cartCount: 0,
-        showTab: (tabName: string) => console.log(tabName),
-        onclickPanier: () => {
-          const cart = document.body.querySelector('#panel-cart')!;
-          if (cart.classList.contains('visible')) return;
+      if (key != "Catalogue") return;
 
-          document.body
-            .querySelector('#panel-products')!
-            .classList.remove('visible');
-          cart.classList.add('visible');
-        },
-        onclickPage: (pageNema: string) => {
-          console.log(pageNema);
-          const products = document.body.querySelector('#panel-products')!;
-          if (products.classList.contains('visible')) return;
+      TabbarViewManager.getInstance().activateTab("Produits")
 
-          document.body
-            .querySelector('#panel-cart')!
-            .classList.remove('visible');
-          products.classList.add('visible');
-        },
-      });
-    });
+    })
 
-    EventBus.getInstance().on(AppEvent.SaleNew, (artcilesAmount) => {
+    EventBus.getInstance().on(AppEvent.SaleNew, (artcilesQuantity) => {
+      console.log(artcilesQuantity)
       TabbarViewManager.getInstance().updateCartCount(
-        -(artcilesAmount as number)
+        -(artcilesQuantity as number)
       );
     });
   }

@@ -61,9 +61,7 @@ describe('MobileNavigationManager', () => {
 
     expect(config.sections).toEqual([
       { key: 'Catalogue', label: 'Catalogue' },
-      { key: 'Commandes', label: 'Commandes' },
-      { key: 'Clients', label: 'Clients' },
-      { key: 'Paramètres', label: 'Paramètres' },
+      { key: 'Déconnexion', label: 'Déconnexion' },
     ]);
 
     expect(config.onSelect).toBeDefined();

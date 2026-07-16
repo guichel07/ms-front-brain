@@ -27,9 +27,7 @@ export class MobileNavigationManager extends SectionMenu {
       MobileNavigationManager.getInstance().render({
         sections: [
           { key: 'Catalogue', label: 'Catalogue' },
-          { key: 'Commandes', label: 'Commandes' },
-          { key: 'Clients', label: 'Clients' },
-          { key: 'Paramètres', label: 'Paramètres' },
+          { key: 'Déconnexion', label: 'Déconnexion' }
         ],
         activeKey: 'Catalogue',
         onSelect: (key) => {

@@ -50,17 +50,18 @@ export class ConfirmViewManager extends Confirm {
         0
       );
 
+      const artcilesQuantity = articles.reduce(
+        (total, orderLine) => total + orderLine.quantity,
+        0
+      );
       EventBus.getInstance().emit(AppEvent.DailyTotalUpdated, artcilesAmount);
 
       ConfirmViewManager.getInstance().render({
         amount: artcilesAmount,
-        articles: articles.reduce(
-          (total, orderLine) => total + orderLine.quantity,
-          0
-        ),
+        articles: artcilesQuantity,
         dailyTotal: await DailySalesController.getInstance().getTodayTotal(),
         onNewSale: () => {
-          EventBus.getInstance().emit(AppEvent.SaleNew, artcilesAmount);
+          EventBus.getInstance().emit(AppEvent.SaleNew, artcilesQuantity);
           ConfirmViewManager.getInstance().returnToAppAfterConfirmation();
         },
       });

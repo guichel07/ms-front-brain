@@ -52,7 +52,7 @@ describe('LoginPage', () => {
 
     LoginPage.init();
 
-    expect(onSpy).toHaveBeenCalledTimes(3);
+    expect(onSpy).toHaveBeenCalledTimes(5);
     expect(onSpy).toHaveBeenCalledWith(
       AppEvent.NotConnected,
       expect.any(Function)

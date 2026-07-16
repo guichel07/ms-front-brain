@@ -105,20 +105,20 @@ describe('TabbarViewManager', () => {
     expect(update).toHaveBeenCalledWith(-5);
   });
 
-  it('MenuItemSelected réaffiche la tabbar', () => {
-    const render = vi.spyOn(
+  it('MenuItemSelected reaffichage de activateTab', () => {
+    const activateTab = vi.spyOn(
       TabbarViewManager.getInstance(),
-      'render'
+      'activateTab'
     );
 
     TabbarViewManager.init();
 
     EventBus.getInstance().emit(
       AppEvent.MenuItemSelected,
-      'Historique'
+      'Catalogue'
     );
 
-    expect(render).toHaveBeenCalled();
+    expect(activateTab).toHaveBeenCalled();
   });
 
   it('onclickPanier affiche le panier', () => {

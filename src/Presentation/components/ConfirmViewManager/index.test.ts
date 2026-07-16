@@ -194,7 +194,7 @@
 
      expect(emitSpy).toHaveBeenCalledWith(
        AppEvent.SaleNew,
-       1000
+       2
      );
 
      expect(returnSpy).toHaveBeenCalled();

@@ -4,6 +4,7 @@ import { EventBus } from '../../../EventBus';
 import type { OrderDTO, OrderLineDTO } from '../Model';
 import { OrderService } from '../Service';
 import { Seller } from '../../Seller';
+import { DailySalesDB } from '../../DailySales/IndexDB';
 
 export class OrderController {
   private static instance: OrderController | null = null;
@@ -35,7 +36,9 @@ export class OrderController {
   }
 
   static init(): void {
-    EventBus.getInstance().on(AppEvent.SaleConfirmed, (recapItems) => {
+    EventBus.getInstance().on(AppEvent.SaleConfirmed, async (recapItems) => {
+      const runningTotal = await DailySalesDB.getInstance().getTodayTotal();
+      const saleDate = new Date().toISOString();
       const orderLines = (recapItems as RecapItem[]).map(recapItem => {
         return {
           articleId: recapItem.id,
@@ -45,7 +48,8 @@ export class OrderController {
       })
       OrderController.getInstance().registerLocal({
         sellerName: Seller.getInstance().getName(),
-        saleDate: new Date().toISOString(),
+        saleDate: saleDate,
+        dailySummary: runningTotal,
         email: Seller.getInstance().getEmail(),
         items: orderLines
       });
