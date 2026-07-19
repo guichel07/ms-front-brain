@@ -1,7 +1,10 @@
 export const FOOTER_MASSAGE = `© Maman Solution — Gestion des ventes simplifiée`;
-export const API_URL_AUTH = 'http://217.182.68.66:8080/ms-auth';
-export const API_URL_ARTICLES = 'http://217.182.68.66:8090/articles';
-export const API_URL_ORDERS = 'http://217.182.68.66:8090/orders';
+// export const API_URL_AUTH = 'http://localhost:8080/ms-auth';
+// export const API_URL_ARTICLES = 'http://localhost:8081/articles';
+// export const API_URL_ORDERS = 'http://localhost:8081/orders';
+export const API_URL_AUTH = 'https://mama-solution.duckdns.org/ms-auth';
+export const API_URL_ARTICLES = 'https://mama-solution.duckdns.org/articles';
+export const API_URL_ORDERS = 'https://mama-solution.duckdns.org/orders';
 
 /**
  * Liste centrale de tous les événements de l'application.
